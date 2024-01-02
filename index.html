@@ -1,5 +1,8 @@
-
-<!DOCTYPE html><!--STATUS OK--><html><head><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>帝都考察团 - 龙年吉祥</title>
     <style>
         body {
@@ -8,10 +11,6 @@
             color: #333;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             text-align: center;
         }
         .container {
@@ -21,10 +20,11 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border: 2px solid #d4af37; /* 金色边框 */
+            border: 2px solid #d4af37;
+            margin: 10px auto;
         }
         h2 {
-            color: #d4380d; /* 传统红色 */
+            color: #d4380d;
             margin-bottom: 20px;
         }
         .input-group label {
@@ -41,7 +41,7 @@
             margin-bottom: 10px;
         }
         button {
-            background-color: #d4380d; /* 传统红色 */
+            background-color: #d4380d;
             color: white;
             padding: 10px 15px;
             border: none;
@@ -51,7 +51,6 @@
             width: 100%;
             margin-top: 10px;
         }
-
         button:hover {
             background-color: #a82807;
         }
@@ -66,19 +65,23 @@
             text-align: center;
         }
         th {
-            background-color: #d4380d; /* 传统红色 */
+            background-color: #d4380d;
             color: white;
         }
         .winner {
-            background-color: #ffd700; /* 黄金色 */
+            background-color: #ffd700;
             color: black;
             font-weight: bold;
         }
         .loser {
-            background-color: #28a745; /* 输家绿色 */
+            background-color: #28a745;
             color: white;
         }
-.overlay {
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+        .overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -91,6 +94,7 @@
             z-index: 999; /* 确保在最上层 */
         }
     </style>
+
 </head>
 <body>
     <div class="overlay" id="overlay" onload="checkPassword();">
