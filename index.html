@@ -188,7 +188,7 @@
                 var multiplier = parseInt(document.getElementById('multiplier').value) || 1;
 
                 // 计算积分，保存本轮积分和倍数
-                var totalCards = cardsHui + cardsJian + cardsYang;
+                var totalCards = cardsPeng+ cardsHui + cardsJian + cardsYang;
                 var scorePeng = cardsPeng === 0 ? totalCards * multiplier : -cardsPeng * multiplier;
                 var scoreHui = cardsHui === 0 ? totalCards * multiplier : -cardsHui * multiplier;
                 var scoreJian = cardsJian === 0 ? totalCards * multiplier : -cardsJian * multiplier;
