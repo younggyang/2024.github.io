@@ -120,7 +120,7 @@
 
 
        
-    <button onclick="analyzeAndDisplay();">分析</button>
+    <button onclick="analyzeAndDisplay();" id="start-btn">分析</button>
 
         <div class="input-group">
            
@@ -161,7 +161,8 @@
             var historyScores = []; // 用于存储历史积分记录
             var password = "2024"; // 设置暗号
 
-           
+  
+
 
         function checkPassword() {
             var enteredPassword = document.getElementById('password').value;
@@ -196,7 +197,32 @@
             return numbers[chineseNumber] || 0;
         }
 
+                    // 检查浏览器是否支持SpeechRecognition API
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (typeof SpeechRecognition !== "undefined") {
+            const recognition = new SpeechRecognition();
+            recognition.lang = "zh-CN"; // 设置语言为中文
+            recognition.interimResults = false; // 设置为false表示只返回最终结果
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript; // 获取识别的文本
+                document.getElementById("voiceInput").value = transcript;
+            };
+
+            document.getElementById("start-btn").addEventListener("click", () => {
+                recognition.start(); // 开始语音识别
+                      // 在语音识别结束后执行特定操作
+                recognition.onend = function() {
+                    console.log('语音识别已结束');
+                    // 这里添加你想在语音识别结束后执行的代码
+                    analyzeAndDisplay();
+                };
+            });
+        }
+
+
         function analyzeAndDisplay() {
+
             let text = document.getElementById('voiceInput').value;
             // 对中文数字进行转换
             text = text.replace(/[一二两三四五六七八九十]+十?[一二三四五六七八九]?|二十/g, match => chineseNumberToArabic(match).toString());
