@@ -107,10 +107,8 @@
     <div class="container">
         <h2>帝都专属 - 龙年吉祥</h2>
          <div class="input-group" > 
-            <div id="overlay_i">
-            <label for="password">请输入发财码：</label>
-            <input type="password" id="password" placeholder="输入暗号">
-            <button onclick="checkPassword()">发财</button>
+             
+           
         </div>
         </div>
     <div>
@@ -120,9 +118,9 @@
             <input type="text" id="voiceInput" placeholder="例如：倍数为3，杨总剩余3张牌，彭总剩余2张牌...">
         </div>
 
-        
+
        
-    <button onclick="analyzeAndDisplay()">分析</button>
+    <button onclick="analyzeAndDisplay();">分析</button>
 
         <div class="input-group">
            
@@ -188,25 +186,42 @@
                 }
             });
 
-            function analyzeAndDisplay() {
-                const voiceInput = document.getElementById('voiceInput').value;
-                const multiplierMatch = voiceInput.match(/倍数为(\d+)/);
-                const multiplier = multiplierMatch ? multiplierMatch[1] : '1'; // 默认倍数为1
-                const regex = /(彭总|坚总|杨总|辉总)剩余(\d+)张/g;
-                let results = {};
-                let match;
-                while ((match = regex.exec(voiceInput)) !== null) {
-                    results[match[1]] = match[2];
-                }
+       function chineseNumberToArabic(chineseNumber) {
+            const numbers = {
+                '一': 1, '二': 2, '两': 2, '三': 3, '四': 4,
+                '五': 5, '六': 6, '七': 7, '八': 8, '九': 9,
+                '十': 10, '十一': 11, '十二': 12, '十三': 13, '十四': 14,
+                '十五': 15, '十六': 16, '十七': 17, '十八': 18, '十九': 19, '二十': 20
+            };
+            return numbers[chineseNumber] || 0;
+        }
 
-                // 准备显示结果
+        function analyzeAndDisplay() {
+            let text = document.getElementById('voiceInput').value;
+            // 对中文数字进行转换
+            text = text.replace(/[一二两三四五六七八九十]+十?[一二三四五六七八九]?|二十/g, match => chineseNumberToArabic(match).toString());
+
+            const multiplierMatch = text.match(/倍数为(\d+)/);
+            const multiplier = multiplierMatch ? multiplierMatch[1] : '1'; // 默认倍数为1
+            const regex = /(彭总|坚总|杨总|辉总)剩余(\d+)张牌/g;
+            let results = {};
+            let match;
+            while ((match = regex.exec(text)) !== null) {
+                results[match[1]] = match[2];
+            }
+
                 document.getElementById('cardsA').value = (results['彭总'] || '');
                 document.getElementById('cardsB').value = (results['辉总'] || '');
                 document.getElementById('cardsC').value = (results['坚总'] || '');
                 document.getElementById('cardsD').value = (results['杨总'] || '');
                 document.getElementById('multiplier').value = multiplier;
 
-         }
+        }
+
+          
+
+
+ 
 
             function calculateAndSaveScore() {
                 // 获取玩家剩余牌数，如果没有输入默认为0
@@ -252,6 +267,7 @@
                 document.getElementById('cardsC').value = '';
                 document.getElementById('cardsD').value = '';
                 document.getElementById('multiplier').value = '';
+                document.getElementById('voiceInput').value='';
             }
 
             // 删除记录
@@ -321,13 +337,13 @@
             function displayPwd(){
                 var overlay = document.getElementById('overlay');
                 overlay.style.display = 'none';
-                var overlay_i = document.getElementById('overlay_i');
-                overlay_i.style.display = 'none';
+               // var overlay_i = document.getElementById('overlay_i');
+               // overlay_i.style.display = 'none';
 
                 // 显示游戏内容
                 document.getElementById('password').disabled = true; // 禁用输入框
                 document.getElementById('password').style.display = "none"; // 隐藏输入框
-                document.getElementById('gameArea').style.display = "block"; // 显示游戏内容
+               // document.getElementById('gameArea').style.display = "block"; // 显示游戏内容
             }
             function addScoreCell(row, score, isWinner) {
                 var cell = row.insertCell();
