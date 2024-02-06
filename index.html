@@ -107,8 +107,10 @@
     <div class="container">
         <h2>帝都专属 - 龙年吉祥</h2>
          <div class="input-group" > 
-             
-           
+            <div id="overlay_i">
+            <label for="password">请输入发财码：</label>
+            <input type="password" id="password1" placeholder="输入暗号">
+            <button onclick="checkPassword()">发财</button>
         </div>
         </div>
     <div>
@@ -118,9 +120,9 @@
             <input type="text" id="voiceInput" placeholder="例如：倍数为3，杨总剩余3张牌，彭总剩余2张牌...">
         </div>
 
-
+        
        
-    <button onclick="analyzeAndDisplay();" id="start-btn">分析</button>
+<div id="am_auto" style="display: none;">
 
         <div class="input-group">
            
@@ -141,11 +143,16 @@
         <div class="input-group">
             <input type="number" id="multiplier" placeholder="输入倍数">
         </div>
+
+</div>
         <button onclick="calculateAndSaveScore()">记录本轮积分</button>
+
         <div id="error" class="error"></div>
         <div id="result"></div>
 
        <button  class="clear_bu" style="background: grey;" onclick="deleteRecord()">删除记录</button>
+        <button  class="clear_bu" style="background: slateblue;" onclick="help('open')">帮助</button>
+
 
 
         <div id="error" class="error"></div>
@@ -161,9 +168,20 @@
             var historyScores = []; // 用于存储历史积分记录
             var password = "2024"; // 设置暗号
 
-  
+           
 
+        function help(flag){
+             var am_auto = document.getElementById('am_auto');
+            if (flag=='open') {
+                am_auto.style.display = '';
+            }else{
+                am_auto.style.display = 'none';
+            }
 
+             
+              
+
+        }
         function checkPassword() {
             var enteredPassword = document.getElementById('password').value;
             if (enteredPassword === password) {
@@ -187,7 +205,7 @@
                 }
             });
 
-       function chineseNumberToArabic(chineseNumber) {
+        function chineseNumberToArabic(chineseNumber) {
             const numbers = {
                 '一': 1, '二': 2, '两': 2, '三': 3, '四': 4,
                 '五': 5, '六': 6, '七': 7, '八': 8, '九': 9,
@@ -197,33 +215,11 @@
             return numbers[chineseNumber] || 0;
         }
 
-                    // 检查浏览器是否支持SpeechRecognition API
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (typeof SpeechRecognition !== "undefined") {
-            const recognition = new SpeechRecognition();
-            recognition.lang = "zh-CN"; // 设置语言为中文
-            recognition.interimResults = false; // 设置为false表示只返回最终结果
-
-            recognition.onresult = function(event) {
-                const transcript = event.results[0][0].transcript; // 获取识别的文本
-                document.getElementById("voiceInput").value = transcript;
-            };
-
-            document.getElementById("start-btn").addEventListener("click", () => {
-                recognition.start(); // 开始语音识别
-                      // 在语音识别结束后执行特定操作
-                recognition.onend = function() {
-                    console.log('语音识别已结束');
-                    // 这里添加你想在语音识别结束后执行的代码
-                    analyzeAndDisplay();
-                };
-            });
-        }
-
-
         function analyzeAndDisplay() {
-
             let text = document.getElementById('voiceInput').value;
+            if(text == null || text == ''){
+                return;
+            }
             // 对中文数字进行转换
             text = text.replace(/[一二两三四五六七八九十]+十?[一二三四五六七八九]?|二十/g, match => chineseNumberToArabic(match).toString());
 
@@ -244,12 +240,9 @@
 
         }
 
-          
-
-
- 
-
             function calculateAndSaveScore() {
+
+                analyzeAndDisplay();
                 // 获取玩家剩余牌数，如果没有输入默认为0
                 var cardsPeng = parseInt(document.getElementById('cardsA').value) || 0;
                 var cardsHui = parseInt(document.getElementById('cardsB').value) || 0;
@@ -260,6 +253,7 @@
                 // 检查只有一个玩家剩余牌数为0
                 var winningPlayers = [cardsPeng, cardsHui, cardsJian, cardsYang].filter(card => card === 0);
 
+                
                 if (winningPlayers.length !== 1) {
                     alert("只能有一个玩家剩余牌数为0！");
                     return;
@@ -293,7 +287,8 @@
                 document.getElementById('cardsC').value = '';
                 document.getElementById('cardsD').value = '';
                 document.getElementById('multiplier').value = '';
-                document.getElementById('voiceInput').value='';
+                document.getElementById('voiceInput').value = '';
+                help('close');
             }
 
             // 删除记录
@@ -363,13 +358,13 @@
             function displayPwd(){
                 var overlay = document.getElementById('overlay');
                 overlay.style.display = 'none';
-               // var overlay_i = document.getElementById('overlay_i');
-               // overlay_i.style.display = 'none';
+                var overlay_i = document.getElementById('overlay_i');
+                overlay_i.style.display = 'none';
 
                 // 显示游戏内容
                 document.getElementById('password').disabled = true; // 禁用输入框
                 document.getElementById('password').style.display = "none"; // 隐藏输入框
-               // document.getElementById('gameArea').style.display = "block"; // 显示游戏内容
+                //document.getElementById('gameArea').style.display = "block"; // 显示游戏内容
             }
             function addScoreCell(row, score, isWinner) {
                 var cell = row.insertCell();
