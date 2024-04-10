@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>帝都考察团 - 龙年吉祥-顺顺发</title>
+    <title>帝都考察团 - 龙年吉祥</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -105,21 +105,15 @@
         </div>
     </div>
     <div class="container">
-<<<<<<< HEAD
-        <h2>帝都专属干瞪眼 - 龙年吉祥-</h2>
-=======
-        <h2>帝都专属-辉总版本 - 龙年吉祥</h2>
->>>>>>> 增加辉总版本
+        <h2>帝都专属-辉总 - 龙年吉祥</h2>
          <div class="input-group" > 
             <div id="overlay_i">
             <label for="password">请输入发财码：</label>
-            <input type="password" id="password" placeholder="输入暗号">
+            <input type="password" id="password1" placeholder="输入暗号">
             <button onclick="checkPassword()">发财</button>
         </div>
         </div>
     <div>
-<<<<<<< HEAD
-=======
 
          <div class="input-group">
            
@@ -130,7 +124,6 @@
        
 <div id="am_auto" style="display: none;">
 
->>>>>>> 增加辉总版本
         <div class="input-group">
            
             <input type="number" id="cardsA" placeholder="输入彭总剩余牌数">
@@ -150,15 +143,25 @@
         <div class="input-group">
             <input type="number" id="multiplier" placeholder="输入倍数">
         </div>
+
+</div>
         <button onclick="calculateAndSaveScore()">记录本轮积分</button>
+
         <div id="error" class="error"></div>
         <div id="result"></div>
 
        <button  class="clear_bu" style="background: grey;" onclick="deleteRecord()">删除记录</button>
+        <button  class="clear_bu" style="background: slateblue;" onclick="help('open')">帮助</button>
+
 
 
         <div id="error" class="error"></div>
         <div id="result"></div>
+            
+
+    
+
+
     </div>
 
         <script>
@@ -167,7 +170,19 @@
 
            
 
-            function checkPassword() {
+        function help(flag){
+             var am_auto = document.getElementById('am_auto');
+            if (flag=='open') {
+                am_auto.style.display = '';
+            }else{
+                am_auto.style.display = 'none';
+            }
+
+             
+              
+
+        }
+        function checkPassword() {
             var enteredPassword = document.getElementById('password').value;
             if (enteredPassword === password) {
                 // 验证通过，移除遮挡层
@@ -190,8 +205,6 @@
                 }
             });
 
-<<<<<<< HEAD
-=======
  
 
         function analyzeAndDisplay() {
@@ -227,17 +240,20 @@
 
         }
 
->>>>>>> 增加辉总版本
             function calculateAndSaveScore() {
+
+                analyzeAndDisplay();
                 // 获取玩家剩余牌数，如果没有输入默认为0
                 var cardsPeng = parseInt(document.getElementById('cardsA').value) || 0;
                 var cardsHui = parseInt(document.getElementById('cardsB').value) || 0;
                 var cardsJian = parseInt(document.getElementById('cardsC').value) || 0;
                 var cardsYang = parseInt(document.getElementById('cardsD').value) || 0;
+                
 
                 // 检查只有一个玩家剩余牌数为0
                 var winningPlayers = [cardsPeng, cardsHui, cardsJian, cardsYang].filter(card => card === 0);
 
+                
                 if (winningPlayers.length !== 1) {
                     alert("只能有一个玩家剩余牌数为0！");
                     return;
@@ -270,6 +286,9 @@
                 document.getElementById('cardsB').value = '';
                 document.getElementById('cardsC').value = '';
                 document.getElementById('cardsD').value = '';
+                document.getElementById('multiplier').value = '';
+                document.getElementById('voiceInput').value = '';
+                help('close');
             }
 
             // 删除记录
@@ -345,7 +364,7 @@
                 // 显示游戏内容
                 document.getElementById('password').disabled = true; // 禁用输入框
                 document.getElementById('password').style.display = "none"; // 隐藏输入框
-                document.getElementById('gameArea').style.display = "block"; // 显示游戏内容
+                //document.getElementById('gameArea').style.display = "block"; // 显示游戏内容
             }
             function addScoreCell(row, score, isWinner) {
                 var cell = row.insertCell();
