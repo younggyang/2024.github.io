@@ -93,6 +93,9 @@
             align-items: center;
             z-index: 999; /* 确保在最上层 */
         }
+        .hidden{
+            display: none;
+        }
     </style>
 
 </head>
@@ -151,7 +154,7 @@
         <div id="result"></div>
 
        <button  class="clear_bu" style="background: grey;" onclick="deleteRecord()">删除记录</button>
-        <button  class="clear_bu" style="background: slateblue;" onclick="help('open')">帮助</button>
+        <button  class="clear_bu" style="background: slateblue;" onclick="help()">帮助</button>
 
 
 
@@ -170,16 +173,13 @@
 
            
 
-        function help(flag){
-             var am_auto = document.getElementById('am_auto');
-            if (flag=='open') {
-                am_auto.style.display = '';
+        function help(){
+            var st = window.getComputedStyle(document.getElementById('am_auto')).display;
+            if(st=="none"){
+                document.getElementById('am_auto').style.display="";
             }else{
-                am_auto.style.display = 'none';
-            }
-
-             
-              
+                document.getElementById('am_auto').style.display="none";
+            }        
 
         }
         function checkPassword() {
@@ -288,7 +288,7 @@
                 document.getElementById('cardsD').value = '';
                 document.getElementById('multiplier').value = '';
                 document.getElementById('voiceInput').value = '';
-                help('close');
+             
             }
 
             // 删除记录
