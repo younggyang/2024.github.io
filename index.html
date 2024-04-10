@@ -105,7 +105,11 @@
         </div>
     </div>
     <div class="container">
+<<<<<<< HEAD
         <h2>帝都专属干瞪眼 - 龙年吉祥-</h2>
+=======
+        <h2>帝都专属-辉总版本 - 龙年吉祥</h2>
+>>>>>>> 增加辉总版本
          <div class="input-group" > 
             <div id="overlay_i">
             <label for="password">请输入发财码：</label>
@@ -114,6 +118,19 @@
         </div>
         </div>
     <div>
+<<<<<<< HEAD
+=======
+
+         <div class="input-group">
+           
+            <input type="text" id="voiceInput" placeholder="1(彭) 0(辉总赢) 3(坚) 3(杨) 1(倍数)">
+        </div>
+
+        
+       
+<div id="am_auto" style="display: none;">
+
+>>>>>>> 增加辉总版本
         <div class="input-group">
            
             <input type="number" id="cardsA" placeholder="输入彭总剩余牌数">
@@ -173,6 +190,44 @@
                 }
             });
 
+<<<<<<< HEAD
+=======
+ 
+
+        function analyzeAndDisplay() {
+    
+
+            let text = document.getElementById('voiceInput').value;
+            if(text == null || text == ''){
+                return;
+            }
+            const inputValues = document.getElementById('voiceInput').value.split(' ');
+
+        // 校验是否有五个数字
+            if(inputValues.length === 5 && inputValues.every(val => !isNaN(parseFloat(val)))) {
+                // 分别赋值给cardsA至cardsD和multiplier
+                document.getElementById('cardsA').value = inputValues[0];
+                document.getElementById('cardsB').value = inputValues[1];
+                document.getElementById('cardsC').value = inputValues[2];
+                document.getElementById('cardsD').value = inputValues[3];
+                document.getElementById('multiplier').value = inputValues[4];
+            } else {
+                // 如果不符合条件，则清空所有input
+                document.getElementById('cardsA').value = '';
+                document.getElementById('cardsB').value = '';
+                document.getElementById('cardsC').value = '';
+                document.getElementById('cardsD').value = '';
+                document.getElementById('multiplier').value = '';
+                if(inputValues.length > 5) {
+                  alert('只能输入五组数字');
+                 }
+              }
+
+
+
+        }
+
+>>>>>>> 增加辉总版本
             function calculateAndSaveScore() {
                 // 获取玩家剩余牌数，如果没有输入默认为0
                 var cardsPeng = parseInt(document.getElementById('cardsA').value) || 0;
